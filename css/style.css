@@ -36,11 +36,72 @@
     font-size: 20px;
 }
 /* ****************************************************************************************************************** */
+
+/* Body */
+.btnsized{
+  width: 150px;
+}
+
+body > .container{
+  padding-top: 60px;
+}
+
+@media all and (max-width: 736px) {
+  .btnsized {
+    order: 2;
+    margin-top: 20px; } }
+
+.modalined {
+  /* border-bottom: none; */
+  border-top: none;
+}
+
+.modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 600px;
+  max-width: 100%;
+  height: 500px;
+  max-height: 100%;
+  /* z-index: 1010; */
+}
+
+.modal-guts {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  /* spacing as needed  */
+  padding: 20px 50px 20px  20px;
+
+  /* let it scroll */
+  overflow: auto;
+
+}
+
+.modal-overlay {
+  z-index: 1000;
+
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+
+/* ****************************************************************************************************************** */
+
 /* FOOTER */
  #footer {
     background-color: var(--primary); 
     color: black;
     min-height: 100px;
+    bottom: 0;
+    /* margin-top: 300px; */
   }
   
   .copyright p {

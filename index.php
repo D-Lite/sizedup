@@ -141,6 +141,7 @@
                                   <?php
                                   $n += 1;
                                   // <br>
+                                  // Any additional info will be added
                                 }
                                 ?>
                             </select>

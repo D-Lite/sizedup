@@ -15,7 +15,7 @@
     </head>
     <body>
         <!-- <div class="container-fluid"> -->
-                    <nav class="navbar navbar-expand-sm navbar-light bg-light"> 
+                    <nav class="navbar navbar-expand-sm navbar-light" style="background-color: var(--banner-color)"> 
                         <div class="container-fluid"> 
                             <a class="navbar-brand" href="index.html">
                                 <img src="docs/Star.jpg" alt="sizedUP" style="height: 25px; margin-bottom: 10px;"/>
@@ -37,14 +37,14 @@
                                 <ul class="navbar-nav mr-auto"> 
                                     <li class="nav-item active"> 
                                         <a class="nav-link" 
-                                           href="#"> 
+                                           href="#" data-toggle="modal" data-target="#aboutModal"> 
                                           About  
-                                          <span class="sr-only"> 
+                                          <!-- <span class="sr-only"> 
                                             (current) 
-                                          </span> 
+                                          </span>  -->
                                       </a> 
                                     </li> 
-                                    <li class="nav-item"> 
+                                    <li class="nav-item shoed"> 
                                         <a class="nav-link" 
                                            href="#"  data-toggle="modal" data-target="#shoeModal"> 
                                           Shoe size 
@@ -67,7 +67,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-sm-6 d-flex justify-content-center">
-                    <button class="btn btnsized" style="background-color: var(--secondary); color: var(--light-bg-color);" data-toggle="modal" data-target="#shoeModal">Shoe Size</button>
+                    <button class="btn btnsized" id="shoed" onclick="changehref()" style="background-color: var(--secondary); color: var(--light-bg-color);" data-toggle="modal" data-target="#shoeModal">Shoe Size</button>
                 </div>
                 
                 <div class="col-sm-6 d-flex justify-content-center">
@@ -87,7 +87,7 @@
         <div id="footer" class="py-3" style="">
             <div class="container">
               <div class="footer-bottom text-center">
-                <div class="social" ">
+                <div class="social">
                   <a href="https://web.facebook.com/olabemiwo.daniel" class="facebook"><span class="fa fa-facebook" aria-hidden="true"></span></a>
                   <!-- <a href="https://www.google.com/search?sxsrf=ALeKk00MsQ5Eds-ExNvO3HS0AHD3oq0qJg%3A1605224773909&source=hp&ei=RcmtX_yONZrMgweV65iICw&q=olabemiwo+daniel&oq=olabemiwo+daniel&gs_lcp=CgZwc3ktYWIQAzoECCMQJzoICAAQyQMQkQI6BQgAEJECOgUILhCxAzoFCAAQsQM6CAguELEDEIMBOgcIABDJAxBDOgoILhDHARCjAhBDOgQIABBDOg0IABCxAxCDARAUEIcCOgIIADoQCC4QxwEQowIQyQMQQxCTAjoHCC4QsQMQQzoCCC46DgguEMcBEK8BEMkDEJMCOgQIABAKOgkIABDJAxAFEB46BwgAEMkDEA06BggAEA0QHjoFCCEQoAFQ1wRY7CFg8iNoAHAAeACAAdsCiAHQIpIBBjItMTUuMZgBAKABAaoBB2d3cy13aXo&sclient=psy-ab&ved=0ahUKEwi8xbmjmP7sAhUa5uAKHZU1BrEQ4dUDCAc&uact=5" class="google"><span class="fa fa-google-plus" aria-hidden="true"></span></a> -->
                   <a href="https://twitter.com/fikkyman1" class="twitter smedia"><span class="fa fa-twitter" aria-hidden="true"></span></a>
@@ -106,8 +106,9 @@
             </div>
         <!-- </div> -->
 
+        <!-- Shoe size modal converter -->
         <div class="modal fade" id="shoeModal" tabindex="-2" role="dialog" aria-labelledby="shoeModalLabel" aria-hidden="true">
-            <div class="modal-guts modal-overla">
+            <!-- <div class="modal-guts modal-overlay"> -->
               <div class="modal-dialog" role="document">
                 <div class="modal-content">
                   <div class="modal-header modalined">
@@ -118,24 +119,22 @@
                       </button>
                   </div>
                   <div class="modal-body col-sm-12" style="margin-top: -10%;">
-                    <form id="loginForm">
+                    <form id="sizeForm">
                         <div style=" width: 100%;" id="erroreddiv" class="alert ">
                           <!-- <span style=" color: white;" id="errored" class="well"></span> -->
                         </div>
                         <!-- <br> -->
                         <div class="row">
-                          <div class="form-group col-sm-8">
-                            <label for="country" class="control-label">Country:</label>
-                            <select id=country" name="country" class="form-control">
+                        <div class="form-group col-sm-10">
+                            <label for="category" class="control-label">Category:</label>
+                            <select id="category" name="category" class="form-control">
                               <option value="" >- Select -</option>
                                 <?php
-                                // Fetch University
-                                
-                                $country = $sizeup->fetchAll('countries');
-                                $n = 1;
-                                  foreach ($country as $key) {
-                                  // echo '<select id="university" name="university" class="form-control">';
+                                // Fetch Categories
 
+                                $category = $sizeup->fetchAll('categories');
+                                $n = 1;
+                                  foreach ($category as $key) {
                                   echo "<option value='".$n."'>".$key['name']."</option>";
                                   ?>
                                   <?php
@@ -145,11 +144,18 @@
                                 }
                                 ?>
                             </select>
+                          </div> 
+                          <div class="form-group col-sm-8">
+                            <label for="country" class="control-label">Country:</label>
+                            <select id=country" name="country" class="form-control" disabled>
+                              <option value="" >- Select -</option>
+                                 
+                            </select>
                           </div>  
                             <br>
                           <div class="col-sm-4">
                             <label for="size" class="control-label">Size:</label>
-                            <input type="shoesize" name="shoesize" id="size" placeholder="34" class="form-control" />
+                            <input type="shoesize" name="shoesize" id="size" placeholder="34" disabled class="form-control" />
                           </div>
                         </div>
                        <div class="d-flex justify-content-center">
@@ -164,14 +170,47 @@
                           </div>
                         </div> 
 
-                        <a href="#" data-toggle="modal" data-target="#passModal" class="xs-margin" style="margin-left: 30%;">Password recovery </a>
                     </form>
+                  </div>
+                </div>
+              </div>
+            <!-- </div> -->
+        </div>
+
+        <!-- About Page -->
+        <div class="modal fade" id="aboutModal" tabindex="-2" role="dialog" aria-labelledby="aboutModalLabel" aria-hidden="true">
+            <div class="modal-guts modal-overla">
+              <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                  <div class="modal-header modalined" style="height="">
+                      <!-- <p class="col-sm-8 d-flex justify-content-center align-middle">Generate your shoe size.</p> -->
+                      <h5 class="modal-title modalined">About </h5>
+                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                      </button>
+                  </div>
+                  <br>
+                  <div class="modal-body col-sm-12" style="margin-top: -20px;">
+                      <div class="container">
+                      <span>
+                      These conversion charts are used for converting between different international shoe size systems,
+                       for men’s and women’s shoes. Please observe that these size charts are only
+                        to be seen as a guide to helping you find your right size. Sizes may differ
+                         notably between different shoe manufacturers and brands.
+                        Thank you for checking out this page. <br>Incase you notice any area that demands improvements, <br>
+                        you can send a mail to me <a href="mailto::dlitecoder@gmail.com"> by clicking here </a>. <br> Gracias,
+                      </span>
+                      </div>
                   </div>
                 </div>
               </div>
             </div>
         </div>
+
     </body>
-    <script src="js/jquery-3.5.1.min.js" type="text/javascript"></script>
+
+    <script src="js/jquery-3.5.1.min.js"></script>
+    <script src="js/ajax.js"></script>
     <script src="js/bootstrap.js" type="text/javascript"></script>
-</html>
+    
+</html> 
